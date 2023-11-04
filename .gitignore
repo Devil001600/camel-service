@@ -1,0 +1,25 @@
+# Eclipse
+.classpath
+.project
+.settings/
+
+# Intellij
+.idea/
+*.iml
+*.iws
+
+# Mac
+.DS_Store
+
+# Maven
+log/
+target/
+/target/
+.mvn/
+mvnw
+mvnw.cmd
+
+#MQ
+mqjms.*
+/.apt_generated/
+/.apt_generated_tests/

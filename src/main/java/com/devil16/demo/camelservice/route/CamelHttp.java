@@ -4,7 +4,6 @@ import org.apache.camel.Exchange;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.jackson.JacksonDataFormat;
 import org.apache.camel.component.jackson.ListJacksonDataFormat;
-import org.apache.camel.model.rest.RestBindingMode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
@@ -14,9 +13,21 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;
 
+/**
+ * CamelHttp class - 
+ * 
+ * demos how external REST Resources can be consumed via camel routes;
+ * uses the RestConfigurationDefinition defined in {@link CamelServlet}
+ * 
+ * @author Debanshu P
+ * @version 1.0
+ * @since 2023-10-31
+ *  
+ */
+
 @Component
 @Slf4j
-public class EmployeeDetails extends RouteBuilder {
+public class CamelHttp extends RouteBuilder {
 	
 	@Autowired
 	private ObjectMapper objectMapper;
@@ -31,15 +42,9 @@ public class EmployeeDetails extends RouteBuilder {
 	@Override
 	public void configure() throws Exception {
 		
-		restConfiguration()
-		.component("servlet")
-		.bindingMode(RestBindingMode.auto)
-        ;
-		
-		rest("/camel-servlet")
-		.get("/get-employees")
+		rest("/camel-http")
+		.get("/employees")
 		.produces(MediaType.APPLICATION_JSON_VALUE)
-		.outType(Employee[].class)
 		.to("direct:getAllEmployees")
 		;
 		
@@ -49,7 +54,7 @@ public class EmployeeDetails extends RouteBuilder {
 		.setHeader(Exchange.HTTP_METHOD, simple("GET"))
 		.to("http://localhost:8081/EmployeeDetails/v1/getEmployees")
 		.log("Received message from service: ${body}")
-		//.unmarshal(employeesDataFormat)
+		.unmarshal(employeesDataFormat)
 		.log("Received message post unmarshal: ${body}")
 		.end()
 		;

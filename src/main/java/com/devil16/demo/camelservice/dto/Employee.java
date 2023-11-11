@@ -5,8 +5,6 @@ import com.devil16.demo.camelservice.dto.EmployeeEnums.EmployeeLob;
 import com.devil16.demo.camelservice.dto.EmployeeEnums.EmployeeStatus;
 import com.devil16.demo.camelservice.dto.EmployeeEnums.EmployeeTeam;
 import com.devil16.demo.camelservice.dto.EmployeeEnums.EmployeeType;
-import com.fasterxml.jackson.annotation.JsonFormat;
-
 import java.time.LocalDate;
 
 import lombok.AllArgsConstructor;
@@ -125,16 +123,14 @@ public final class Employee {
 	 * joining date of the employee
 	 */
 	@Builder.Default
-	//@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-	//private LocalDate dateOfJoining = LocalDate.of(1970,01,01);
-	private String dateOfJoining = StringUtils.EMPTY;
+//	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+	private LocalDate dateOfJoining = LocalDate.of(1970,01,01);
 	
 	/**
 	 * last working-day of the employee
 	 */
 	@Builder.Default
-	//@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-	//private LocalDate lastWorkingDate = LocalDate.of(1970,01,01);
-	private String lastWorkingDate = StringUtils.EMPTY;
+//	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+	private LocalDate lastWorkingDate = LocalDate.of(1970,01,01);
 	
 }

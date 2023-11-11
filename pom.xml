@@ -22,7 +22,8 @@
 		<java.version>17</java.version>
 		<camel-spring-boot-starter.version>4.1.0</camel-spring-boot-starter.version>
 		<camel-servlet-starter.version>4.1.0</camel-servlet-starter.version>
-		<camel-jackson.version>4.1.0</camel-jackson.version>
+		<camel-http-starter.version>4.1.0</camel-http-starter.version>
+		<camel-jackson-starter.version>4.1.0</camel-jackson-starter.version>
 	</properties>
 
 	<dependencies>
@@ -46,7 +47,7 @@
 		<dependency>
 			<groupId>org.apache.camel.springboot</groupId>
 			<artifactId>camel-http-starter</artifactId>
-			<version>4.1.0</version>
+			<version>${camel-http-starter.version}</version>
 		</dependency>
 
 
@@ -63,9 +64,9 @@
 		</dependency>
 
 		<dependency>
-			<groupId>org.apache.camel</groupId>
-			<artifactId>camel-jackson</artifactId>
-			<version>${camel-jackson.version}</version>
+			<groupId>org.apache.camel.springboot</groupId>
+			<artifactId>camel-jackson-starter</artifactId>
+			<version>${camel-jackson-starter.version}</version>
 		</dependency>
 
 		<dependency>

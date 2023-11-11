@@ -6,7 +6,7 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 
 @Component
-public class HelloCamelServletRoute extends RouteBuilder {
+public class HelloCamelServlet extends RouteBuilder {
 
 	@Override
 	public void configure() throws Exception {

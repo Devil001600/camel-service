@@ -24,6 +24,7 @@
 		<camel-servlet-starter.version>4.1.0</camel-servlet-starter.version>
 		<camel-http-starter.version>4.1.0</camel-http-starter.version>
 		<camel-jackson-starter.version>4.1.0</camel-jackson-starter.version>
+		<cxf-codegen-plugin.version>4.0.3</cxf-codegen-plugin.version>
 	</properties>
 
 	<dependencies>
@@ -50,6 +51,17 @@
 			<version>${camel-http-starter.version}</version>
 		</dependency>
 
+		<dependency>
+			<groupId>org.apache.camel.springboot</groupId>
+			<artifactId>camel-jackson-starter</artifactId>
+			<version>${camel-jackson-starter.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.camel.springboot</groupId>
+			<artifactId>camel-soap-starter</artifactId>
+			<version>4.1.0</version>
+		</dependency>
 
 		<dependency>
 			<groupId>org.projectlombok</groupId>
@@ -64,9 +76,8 @@
 		</dependency>
 
 		<dependency>
-			<groupId>org.apache.camel.springboot</groupId>
-			<artifactId>camel-jackson-starter</artifactId>
-			<version>${camel-jackson-starter.version}</version>
+			<groupId>jakarta.xml.soap</groupId>
+			<artifactId>jakarta.xml.soap-api</artifactId>
 		</dependency>
 
 		<dependency>
@@ -81,6 +92,52 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>jaxb2-maven-plugin</artifactId>
+				<version>3.1.0</version>
+				<executions>
+					<execution>
+						<id>xsd-to-java</id>
+						<goals>
+							<goal>xjc</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<sources>
+						<source>
+							src/main/resources/data-access-number-conversion.xsd</source>
+					</sources>
+					<!--
+					<outputDirectory>${project.basedir}/src/main/java</outputDirectory>-->
+					<!--					<clearOutputDir>false</clearOutputDir>-->
+					<packageName>com.devil16.demo.camelservice.dto</packageName>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>build-helper-maven-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>add-sources</id>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>add-source</goal>
+						</goals>
+						<configuration>
+							<sources>
+								<source>
+									${project.build.directory}/generated-sources/jaxb/</source>
+								<source>
+									${project.build.directory}/generated-sources/cxf</source>
+							</sources>
+						</configuration>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>

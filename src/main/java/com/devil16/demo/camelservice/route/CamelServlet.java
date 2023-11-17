@@ -28,18 +28,19 @@ public class CamelServlet extends RouteBuilder {
 		
 		restConfiguration()
 		.component("servlet")
-		.bindingMode(RestBindingMode.auto)
+		//.bindingMode(RestBindingMode.auto)
 		;
 		
-		rest("/camel-servlet").
-		get("/hello").
-		produces(MediaType.TEXT_PLAIN_VALUE).
-		outType(String.class).
-		param().
-		name("name").
-		type(RestParamType.path).
-		endParam().
-		to("direct:helloCamelServlet");
+		rest("/camel-servlet")
+		.get("/hello")
+		.produces(MediaType.TEXT_PLAIN_VALUE)
+		.outType(String.class)
+		.param()
+		.name("name")
+		.type(RestParamType.path)
+		.endParam()
+		.to("direct:helloCamelServlet")
+		;
 		
 		from("direct:helloCamelServlet").setBody(simple("CamelServlet says Hello, ${header.name}"));
 		

@@ -25,15 +25,34 @@ public class OjectMapperConfig {
 		objectMapper.disable(DeserializationFeature.ADJUST_DATES_TO_CONTEXT_TIME_ZONE);
 		return objectMapper;
 	}
-
-    @Bean(name = "soapDataFormat")
+	
+    @Bean(name = "soap11DataFormat")
     @Primary
-    SoapDataFormat soapDataFormat() {
+    SoapDataFormat soap11DataFormat() {
 		
 		SoapDataFormat soapDataFormat = new SoapDataFormat();
 
 		Map<String, String> jaxbNameSapcePrefix = new HashMap<String, String>();
 		jaxbNameSapcePrefix.put("http://schemas.xmlsoap.org/soap/envelope/", "soapenv");
+		jaxbNameSapcePrefix.put("http://www.dataaccess.com/webservicesserver/", "web");
+
+		soapDataFormat.setElementNameStrategy(new TypeNameStrategy());
+
+		soapDataFormat.setContextPath("com.devil16.demo.camelservice.dto");
+		soapDataFormat.setVersion("1.1");
+		soapDataFormat.setNamespacePrefix(jaxbNameSapcePrefix);
+//		soapDataFormat.setSchema("classpath:data-access-number-conversion.xsd");
+			
+		return soapDataFormat;
+	}
+
+    @Bean(name = "soap12DataFormat")
+    @Primary
+    SoapDataFormat soap12DataFormat() {
+		
+		SoapDataFormat soapDataFormat = new SoapDataFormat();
+
+		Map<String, String> jaxbNameSapcePrefix = new HashMap<String, String>();
 		jaxbNameSapcePrefix.put("http://www.w3.org/2003/05/soap-envelope", "soap12");
 		jaxbNameSapcePrefix.put("http://www.dataaccess.com/webservicesserver/", "web");
 
@@ -46,5 +65,5 @@ public class OjectMapperConfig {
 			
 		return soapDataFormat;
 	}
-	
+
 }

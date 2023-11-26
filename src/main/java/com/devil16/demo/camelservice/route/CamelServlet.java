@@ -6,6 +6,8 @@ import org.apache.camel.model.rest.RestParamType;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 
+import com.devil16.demo.camelservice.dto.Employee;
+
 
 /**
  * CamelServlet class - 
@@ -28,21 +30,29 @@ public class CamelServlet extends RouteBuilder {
 		
 		restConfiguration()
 		.component("servlet")
-		//.bindingMode(RestBindingMode.auto)
 		;
 		
-		rest("/camel-servlet")
-		.get("/hello")
-		.produces(MediaType.TEXT_PLAIN_VALUE)
-		.outType(String.class)
-		.param()
-		.name("name")
-		.type(RestParamType.path)
-		.endParam()
-		.to("direct:helloCamelServlet")
+		rest()
+		.get("/camel-servlet/hello")
+			.produces(MediaType.TEXT_PLAIN_VALUE)
+			.outType(String.class)
+			.param()
+			.name("name")
+			.type(RestParamType.path)
+			.endParam()
+			.to("direct:hello-camel-servlet")
+		.post("/camel-soap/marshall-unmarshall-soap-xml")
+			.consumes(MediaType.APPLICATION_XML_VALUE)
+			.produces(MediaType.APPLICATION_XML_VALUE)
+			.to("direct:marshall-unmarshall-soap-xml")
+		.get("/camel-http/employees")
+			.produces(MediaType.APPLICATION_JSON_VALUE)
+			.bindingMode(RestBindingMode.json)
+			.outType(Employee.class)
+			.to("direct:getAllEmployees")
 		;
 		
-		from("direct:helloCamelServlet").setBody(simple("CamelServlet says Hello, ${header.name}"));
+		from("direct:hello-camel-servlet").setBody(simple("CamelServlet says Hello, ${header.name}"));
 		
 	}
 	

@@ -4,7 +4,6 @@ import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.dataformat.soap.SoapDataFormat;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 
 import com.devil16.demo.camelservice.dto.NumberToWords;
@@ -23,13 +22,6 @@ public class CamelSoap  extends RouteBuilder {
 	
 	@Override
 	public void configure() throws Exception {
-		
-		rest("/camel-soap")
-		.post("/marshall-unmarshall-soap-xml")
-		.consumes(MediaType.APPLICATION_XML_VALUE)
-		.produces(MediaType.APPLICATION_XML_VALUE)
-		.to("direct:marshall-unmarshall-soap-xml")
-		;
 		
 		from("direct:marshall-unmarshall-soap-xml")
 		.choice()

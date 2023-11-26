@@ -5,7 +5,6 @@ import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.jackson.JacksonDataFormat;
 import org.apache.camel.component.jackson.ListJacksonDataFormat;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 
 import com.devil16.demo.camelservice.dto.Employee;
@@ -41,12 +40,6 @@ public class CamelHttp extends RouteBuilder {
 	
 	@Override
 	public void configure() throws Exception {
-		
-		rest("/camel-http")
-		.get("/employees")
-		.produces(MediaType.APPLICATION_JSON_VALUE)
-		.to("direct:getAllEmployees")
-		;
 		
 		from("direct:getAllEmployees")
 		.log("Received message: ${body}")
